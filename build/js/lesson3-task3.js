@@ -46,7 +46,7 @@ function createGal() {
     contDinPage.innerHTML = ` 
     <h1 class="PageGall__h1"> Галерея </h1>
     <img src="${arrLink[index]}" alt="mainImg" class="PageGall__mainImg">
-    <div class="PageGall__contImgmin"></div>`
+    <div class="PageGall__contImgmin" id="wrapper"></div>`
 
     function createSlide(count) { // функция создания ленты слайдера html
         d.querySelector('.PageGall__contImgmin').innerHTML = `<button class="PageGall__button"  id="1">0</button>`

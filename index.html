@@ -17,7 +17,7 @@
         <a href="#_/main" class="header__a" target="_self" onclick="creatMainPage()"> Главная </a>
         <a href="#_/Gal" class="header__a" target="_self" onclick="createGal()"> Галерея </a>
         <!-- <a href="#_/Корзина" class="header__a" target="_self" onclick="cart()"> Корзина </a> -->
-      <!--   <a href="#_/Шахмотная доска" class="header__a" target="_self"> Шахмотная доска </a> -->
+        <!--   <a href="#_/Шахмотная доска" class="header__a" target="_self"> Шахмотная доска </a> -->
       </div>
     </header>
     <section class='dinamikPage'>
@@ -26,10 +26,19 @@
     <footer class='footer'></footer>
   </div>
 
-   <script src="./build/js/main.js"></script>
-   <script src="./build/js/lesson3-task2.js"></script> 
-   <script src="./build/js/lesson3-task3.js"></script> 
-   <script src="./build/js/jQuery.js"></script>
+  <script src="./build/js/main.js"></script>
+  <script src="./build/js/lesson3-task2.js"></script>
+  <script src="./build/js/lesson3-task3.js"></script>
+  <script src="./build/js/jQuery.js"></script>
+  <script src="./build/js/iscroll.js"></script>
+  <script>
+    var myScroll;
+    function loaded() {
+      myScroll = new IScroll('#wrapper');
+    }
+  </script>
+
+
 </body>
 
 </html>

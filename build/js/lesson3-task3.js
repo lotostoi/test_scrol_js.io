@@ -1,6 +1,12 @@
-createGal() 
+createGal()
 
 function createGal() {
+
+    var myScroll;
+    function loaded() {
+        myScroll = new IScroll('#wrapper');
+    }
+
 
     var link = './build/img/1'
     var numberFotoOll = 20
@@ -46,17 +52,18 @@ function createGal() {
     document.querySelector('.PageGall').innerHTML = ` 
     <h1 class="PageGall__h1"> Галерея </h1>
     <img src="${arrLink[index]}" alt="mainImg" class="PageGall__mainImg">
-    <div class="PageGall__contImgmin" id="wrapper"></div>`
+    <div class="PageGall__contImgmin" id="wrapper" onload="loaded()" ></div>`
 
-    function createSlide(count) { // функция создания ленты слайдера html
+    function createSlide(count, callback) { // функция создания ленты слайдера html
         d.querySelector('.PageGall__contImgmin').innerHTML = `<button class="PageGall__button"  id="1">0</button>`
         for (let i = 0; i < count; i++) {
             d.querySelector('.PageGall__contImgmin').innerHTML += `<img src="${arrLink[i]}" width="50px" alt="1" class="PageGall__Img">`
         }
         d.querySelector('.PageGall__contImgmin').innerHTML += `<button class="PageGall__button"  id="2">0</button>`
+        callback()
     }
 
-    createSlide(numberFoto) //  вызов функции создания ленты слайдера
+    createSlide(numberFoto, loaded) //  вызов функции создания ленты слайдера
 
     function createWorkImg() {
         let colImg = d.querySelectorAll('.PageGall__Img') // массив изображений слайдера
@@ -69,6 +76,8 @@ function createGal() {
     }
 
     createWorkImg()
+
+
 
     function workClickG() { // обработка наведений на изображение слайдера
         index = event.target.id - 1

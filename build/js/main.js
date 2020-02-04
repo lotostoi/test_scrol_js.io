@@ -4,7 +4,8 @@ let listA = d.querySelectorAll('.header__li')
 let contDinPage = d.querySelector('.dinamikPage')
 
 function creatMainPage(){
-    contDinPage.className='dinamikPage'
+    contDinPage.className = 'PageGall'
+
     contDinPage.innerHTML =''
    
 }

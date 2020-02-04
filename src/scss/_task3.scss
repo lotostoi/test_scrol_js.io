@@ -1,0 +1,108 @@
+.PageGall {
+  flex: 1 0 auto;
+  margin: 52px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: content-box;
+  position: relative;
+  z-index: 500;
+  &::before{
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(./../img/fon4.jpg) center;
+    background-size: cover;
+    opacity: 0.4;
+    left: 0;
+    top: 0;
+    z-index: -20;
+  }
+  
+
+  &__h1 {
+    font-size: 30px;
+    color: black;
+  }
+
+  &__mainImg {
+    border-radius: 3px;
+    display: block;
+    width: 800px;
+    height: 450px;
+  }
+
+  &__contImgmin {
+    margin: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__Img {
+    border-radius: 5px;
+    margin: 0 2px;
+    width: 100px;
+    height: 60px;
+    transition: transform 200ms linear;
+
+  }
+
+  &__ImgH {
+    border-radius: 5px;
+    margin: 0 2px;
+    width: 100px;
+    height: 60px;
+    transition: transform 200ms linear;
+    transform: scale(1.2);
+  }
+
+
+  &__button:first-child {
+    background-color: transparent;
+    display: flex;
+    margin: 0 10px;
+    width: 40px;
+    height: 49px;
+    border-right: 32px solid #000000;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: none;
+    font-size: 0;
+    outline: none;
+
+    &:hover {
+      border-right: 32px solid rgb(37, 54, 100);;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-left: none;
+    }
+  }
+
+  &__button:last-child {
+    background-color: transparent;
+    display: flex;
+    margin: 0 10px;
+    width: 40px;
+    height: 49px;
+    border-right: none;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-left: 32px solid rgb(0, 0, 0);
+    font-size: 0;
+    outline: none;
+
+    &:hover {
+      border-right: none;
+      border-top: 25px solid transparent;
+      border-bottom: 25px solid transparent;
+      border-left: 32px solid rgb(37, 54, 100);;
+    }
+  }
+}

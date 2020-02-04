@@ -1,3 +1,5 @@
+createGal() 
+
 function createGal() {
 
     var link = './build/img/1'
@@ -7,17 +9,15 @@ function createGal() {
     let arrOut = []
     let d = document
     let index = 3
- 
 
-  /*   let contDinPage = d.querySelector('.dinamikPage') */
 
-    contDinPage.className = 'PageGall'
+    /*   let contDinPage = d.querySelector('.dinamikPage') */
 
     for (let i = 0; i < numberFotoOll; i++) {
-        arrOut.push(`${link}${i+1}.jpg`)
+        arrOut.push(`${link}${i + 1}.jpg`)
     }
     for (let i = 0; i < numberFoto; i++) {
-        arrLink.push(`${link}${i+1}.jpg`)
+        arrLink.push(`${link}${i + 1}.jpg`)
     }
 
     function creatArr(workArr, iff) {
@@ -43,7 +43,7 @@ function createGal() {
     }
 
     // создаем страницу галереи
-    contDinPage.innerHTML = ` 
+    document.querySelector('.PageGall').innerHTML = ` 
     <h1 class="PageGall__h1"> Галерея </h1>
     <img src="${arrLink[index]}" alt="mainImg" class="PageGall__mainImg">
     <div class="PageGall__contImgmin" id="wrapper"></div>`
@@ -62,7 +62,7 @@ function createGal() {
         let colImg = d.querySelectorAll('.PageGall__Img') // массив изображений слайдера
         d.querySelectorAll('.PageGall__Img')[index].className = "PageGall__ImgH"
         colImg.forEach((el, i) => {
-            colImg[i].setAttribute('id', `${i+1}`) // добавлем id изображениям слайдера
+            colImg[i].setAttribute('id', `${i + 1}`) // добавлем id изображениям слайдера
             colImg[i].addEventListener('mouseover', workClickG) // добавляем обработчки изображений слайдера  
             //   colImg[i].addEventListener('mouseout', workHoverOut) // добавляем обработчки изображений слайдера  
         })

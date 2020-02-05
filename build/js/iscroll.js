@@ -1010,6 +1010,7 @@ IScroll.prototype = {
 			eventType(target, 'touchcancel', this);
 			eventType(target, 'touchend', this);
 		} */
+		console.log();
 
 		eventType(this.scroller, 'transitionend', this);
 		eventType(this.scroller, 'webkitTransitionEnd', this);

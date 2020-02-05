@@ -997,20 +997,20 @@ IScroll.prototype = {
 			eventType(target, 'mouseup', this);
 		}
 
-		if ( utils.hasPointer && !this.options.disablePointer ) {
+		/* if ( utils.hasPointer && !this.options.disablePointer ) {
 			eventType(this.wrapper, utils.prefixPointerEvent('pointerdown'), this);
 			eventType(target, utils.prefixPointerEvent('pointermove'), this);
 			eventType(target, utils.prefixPointerEvent('pointercancel'), this);
 			eventType(target, utils.prefixPointerEvent('pointerup'), this);
-		}
+		} */
 
-	/* 	if ( utils.hasTouch && !this.options.disableTouch ) {
+	 	if ( utils.hasTouch && !this.options.disableTouch ) {
 			eventType(this.wrapper, 'touchstart', this);
 			eventType(target, 'touchmove', this);
 			eventType(target, 'touchcancel', this);
 			eventType(target, 'touchend', this);
-		} */
-		console.log();
+		} 
+		
 
 		eventType(this.scroller, 'transitionend', this);
 		eventType(this.scroller, 'webkitTransitionEnd', this);

@@ -1,16 +1,15 @@
 .contener {
-  position: absolute;
+  -webkit-transition: .2s;
+  transition: .2s;
+  overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: hidden;
 }
 
 .gallery {
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: hidden;
 }
 /*# sourceMappingURL=all.css.map */

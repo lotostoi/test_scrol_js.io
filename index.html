@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./build/css/all.css">
 </head>
 
-<body onload="loaded()">
+<body >
   <div class="contener" id="wrapper">
     <div class="gallery">
       <a href="#" class="gallery__a"><img src="./build/img/11.jpg" alt="img" width="550" height="350"
@@ -58,10 +58,10 @@
 
   <script src="./build/js/iscroll.js"></script>
   <script>
-    var myScroll;
+    
 
-    function loaded() {
-      myScroll = new IScroll('#wrapper', {
+   window.onload = () => {
+      let myScroll = new IScroll('#wrapper', {
         mouseWheel: true,
         scrollbars: true,
         scrollY: false,

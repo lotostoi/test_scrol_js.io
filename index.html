@@ -9,27 +9,42 @@
   <link rel="stylesheet" href="./build/css/all.css">
 </head>
 
-<body>
-  <div class="contener">
-    <header class="header">
-      <h1 class="header__h1">The Js lesson 5</h1>
-      <div class="header__ul">
-      </div>
-    </header>
+<body onload="loaded()">
+  <div class="contener" >
+    <div class="gallery" id="wrapper" >
+      <a href="#" class="gallery__a"><img src="./build/img/11.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/12.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/13.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/14.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/15.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/16.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/17.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/18.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/19.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/110.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/112.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/113.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/114.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/115.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/116.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/117.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/118.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/119.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/120.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+      <a href="#" class="gallery__a"><img src="./build/img/11.jpg" alt="img" width="550" height="350" class="gallery__img"></a>
+    </div>
 
-    <section class='PageGall'>
-    </section>
-
-    <footer class='footer'></footer>
   </div>
 
   <script src="./build/js/iscroll.js"></script>
-  <script src="./build/js/lesson3-task3.js"></script>
-  <script src="./build/js/jQuery.js"></script>
-
   <script>
-  
+    var myScroll;
+    function loaded() {
+        myScroll = new IScroll('#wrapper');
+    }
   </script>
+
+ 
 
 
 </body>

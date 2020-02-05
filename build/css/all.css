@@ -1,3 +1,7 @@
+.contener {
+  position: absolute;
+}
+
 .gallery {
   display: -webkit-box;
   display: -ms-flexbox;

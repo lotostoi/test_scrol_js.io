@@ -1,8 +1,11 @@
 .contener {
     position: absolute;
+    display: flex;
+    overflow: hidden;
 }
 
 .gallery {
+    position: relative;
     display: flex;
     overflow: hidden;
 }

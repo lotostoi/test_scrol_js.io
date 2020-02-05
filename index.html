@@ -61,9 +61,10 @@
     var myScroll;
 
     function loaded() {
-      new IScroll('#wrapper', {
+      myScroll = new IScroll('#wrapper', {
         mouseWheel: true,
         scrollbars: true,
+        scrollY: false,
         scrollX: true
       });
     }

@@ -527,7 +527,7 @@
 
 				this._execEvent('beforeScrollStart');
 
-				console.log(e)
+			//	console.log(e)
 
 			/* } */
 

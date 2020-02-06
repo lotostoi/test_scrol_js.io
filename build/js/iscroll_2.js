@@ -319,7 +319,7 @@
 				};
 			}
 		};
-		console.log(me);
+		//console.log(me);
 		return me;
 	})();
 

@@ -659,9 +659,9 @@
 					e.preventDefault();
 				}
 
-				if (this.flag_m ) {
+				if (!this.flag_s) {
 			
-					this.flag_m = false;
+					this.flag_s = true;
 					console.log(this.flag_m);
 
 
@@ -752,6 +752,7 @@
 				}
 
 				this._execEvent('scrollEnd');
+				this.flag_s = false;
 			
 			}
 		},

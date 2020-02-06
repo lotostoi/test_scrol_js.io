@@ -493,7 +493,7 @@
 				e.preventDefault();
 			}
 
-			if (e.pointerId == 1) {
+		/* 	if (e.pointerId == 1) { */
 				var point = e.touches ? e.touches[0] : e,
 					pos;
 
@@ -527,9 +527,9 @@
 
 				this._execEvent('beforeScrollStart');
 
-				console.log(e)
+				//console.log(e)
 
-			}
+			/* } */
 
 
 		},

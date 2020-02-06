@@ -493,7 +493,7 @@
 				e.preventDefault();
 			}
 
-			if (e.pointerId == 1) { 
+			if (e.pointerId == 1) {
 				var point = e.touches ? e.touches[0] : e,
 					pos;
 
@@ -527,9 +527,9 @@
 
 				this._execEvent('beforeScrollStart');
 
-				//console.log(e)
+				console.log(e)
 
-			 } 
+			}
 
 
 		},
@@ -542,92 +542,94 @@
 			if (this.options.preventDefault) { // increases performance on Android? TODO: check!
 				e.preventDefault();
 			}
+			if (e.pointerId == 1) {
 
-			var point = e.touches ? e.touches[0] : e,
-				deltaX = point.pageX - this.pointX,
-				deltaY = point.pageY - this.pointY,
-				timestamp = utils.getTime(),
-				newX, newY,
-				absDistX, absDistY;
+				var point = e.touches ? e.touches[0] : e,
+					deltaX = point.pageX - this.pointX,
+					deltaY = point.pageY - this.pointY,
+					timestamp = utils.getTime(),
+					newX, newY,
+					absDistX, absDistY;
 
-			this.pointX = point.pageX;
-			this.pointY = point.pageY;
+				this.pointX = point.pageX;
+				this.pointY = point.pageY;
 
-			this.distX += deltaX;
-			this.distY += deltaY;
-			absDistX = Math.abs(this.distX);
-			absDistY = Math.abs(this.distY);
+				this.distX += deltaX;
+				this.distY += deltaY;
+				absDistX = Math.abs(this.distX);
+				absDistY = Math.abs(this.distY);
 
-			// We need to move at least 10 pixels for the scrolling to initiate
-			if (timestamp - this.endTime > 300 && (absDistX < 10 && absDistY < 10)) {
-				return;
-			}
-
-			// If you are scrolling in one direction lock the other
-			if (!this.directionLocked && !this.options.freeScroll) {
-				if (absDistX > absDistY + this.options.directionLockThreshold) {
-					this.directionLocked = 'h'; // lock horizontally
-				} else if (absDistY >= absDistX + this.options.directionLockThreshold) {
-					this.directionLocked = 'v'; // lock vertically
-				} else {
-					this.directionLocked = 'n'; // no lock
-				}
-			}
-
-			if (this.directionLocked == 'h') {
-				if (this.options.eventPassthrough == 'vertical') {
-					e.preventDefault();
-				} else if (this.options.eventPassthrough == 'horizontal') {
-					this.initiated = false;
+				// We need to move at least 10 pixels for the scrolling to initiate
+				if (timestamp - this.endTime > 300 && (absDistX < 10 && absDistY < 10)) {
 					return;
 				}
 
-				deltaY = 0;
-			} else if (this.directionLocked == 'v') {
-				if (this.options.eventPassthrough == 'horizontal') {
-					e.preventDefault();
-				} else if (this.options.eventPassthrough == 'vertical') {
-					this.initiated = false;
-					return;
+				// If you are scrolling in one direction lock the other
+				if (!this.directionLocked && !this.options.freeScroll) {
+					if (absDistX > absDistY + this.options.directionLockThreshold) {
+						this.directionLocked = 'h'; // lock horizontally
+					} else if (absDistY >= absDistX + this.options.directionLockThreshold) {
+						this.directionLocked = 'v'; // lock vertically
+					} else {
+						this.directionLocked = 'n'; // no lock
+					}
 				}
 
-				deltaX = 0;
+				if (this.directionLocked == 'h') {
+					if (this.options.eventPassthrough == 'vertical') {
+						e.preventDefault();
+					} else if (this.options.eventPassthrough == 'horizontal') {
+						this.initiated = false;
+						return;
+					}
+
+					deltaY = 0;
+				} else if (this.directionLocked == 'v') {
+					if (this.options.eventPassthrough == 'horizontal') {
+						e.preventDefault();
+					} else if (this.options.eventPassthrough == 'vertical') {
+						this.initiated = false;
+						return;
+					}
+
+					deltaX = 0;
+				}
+
+				deltaX = this.hasHorizontalScroll ? deltaX : 0;
+				deltaY = this.hasVerticalScroll ? deltaY : 0;
+
+				newX = this.x + deltaX;
+				newY = this.y + deltaY;
+
+				// Slow down if outside of the boundaries
+				if (newX > 0 || newX < this.maxScrollX) {
+					newX = this.options.bounce ? this.x + deltaX / 3 : newX > 0 ? 0 : this.maxScrollX;
+				}
+				if (newY > 0 || newY < this.maxScrollY) {
+					newY = this.options.bounce ? this.y + deltaY / 3 : newY > 0 ? 0 : this.maxScrollY;
+				}
+
+				this.directionX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;
+				this.directionY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0;
+
+				if (!this.moved) {
+					this._execEvent('scrollStart');
+				}
+
+				this.moved = true;
+
+				this._translate(newX, newY);
+
+				/* REPLACE START: _move */
+
+				if (timestamp - this.startTime > 300) {
+					this.startTime = timestamp;
+					this.startX = this.x;
+					this.startY = this.y;
+				}
+
+				/* REPLACE END: _move */
 			}
-
-			deltaX = this.hasHorizontalScroll ? deltaX : 0;
-			deltaY = this.hasVerticalScroll ? deltaY : 0;
-
-			newX = this.x + deltaX;
-			newY = this.y + deltaY;
-
-			// Slow down if outside of the boundaries
-			if (newX > 0 || newX < this.maxScrollX) {
-				newX = this.options.bounce ? this.x + deltaX / 3 : newX > 0 ? 0 : this.maxScrollX;
-			}
-			if (newY > 0 || newY < this.maxScrollY) {
-				newY = this.options.bounce ? this.y + deltaY / 3 : newY > 0 ? 0 : this.maxScrollY;
-			}
-
-			this.directionX = deltaX > 0 ? -1 : deltaX < 0 ? 1 : 0;
-			this.directionY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0;
-
-			if (!this.moved) {
-				this._execEvent('scrollStart');
-			}
-
-			this.moved = true;
-
-			this._translate(newX, newY);
-
-			/* REPLACE START: _move */
-
-			if (timestamp - this.startTime > 300) {
-				this.startTime = timestamp;
-				this.startX = this.x;
-				this.startY = this.y;
-			}
-
-			/* REPLACE END: _move */
 
 		},
 

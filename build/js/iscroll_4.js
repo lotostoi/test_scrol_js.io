@@ -496,7 +496,11 @@
 					e.preventDefault();
 				}
 
-				//if (!this.flag_s) {
+				
+				if (!this.flag_m) {
+					console.log('test')
+					this.flag_m = true;
+
 				var point = e.touches ? e.touches[0] : e,
 					pos;
 
@@ -534,7 +538,7 @@
 
 				console.log(e)
 
-		//	}
+		}
 
 
 		},
@@ -549,9 +553,6 @@
 					e.preventDefault();
 				}
 
-				if (!this.flag_m) {
-					console.log('test')
-					this.flag_s = false;
 				this.flag_m = false;
 				console.log(this.flag_m);
 				var point = e.touches ? e.touches[0] : e,
@@ -641,10 +642,7 @@
 				/* REPLACE END: _move */
 				console.log(point.pointerId);
 		
-				this.flag_m = false;
-			
-				
-			}
+		
 
 
 		},
@@ -659,10 +657,7 @@
 					e.preventDefault();
 				}
 
-				if (!this.flag_s) {
-			
-					this.flag_s = true;
-					console.log(this.flag_m);
+		
 
 
 				var point = e.changedTouches ? e.changedTouches[0] : e,
@@ -752,9 +747,12 @@
 				}
 
 				this._execEvent('scrollEnd');
-				this.flag_s = false;
+
+				
+				console.log(e)
+				this.flag_m = false;
 			
-			}
+		//	}
 		},
 
 		_resize: function () {

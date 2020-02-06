@@ -492,7 +492,7 @@
 			if (this.options.preventDefault && !utils.isBadAndroid && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
 				e.preventDefault();
 			}
-			
+
 			if (e.pointerId == 1) {
 				var point = e.touches ? e.touches[0] : e,
 					pos;

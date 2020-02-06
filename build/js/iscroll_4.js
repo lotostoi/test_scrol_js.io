@@ -358,7 +358,9 @@
 			HWCompositing: true,
 			useTransition: true,
 			useTransform: true,
-			bindToWrapper: typeof window.onmousedown === "undefined"
+			bindToWrapper: typeof window.onmousedown === "undefined",
+			flag_s: false,
+			flag_m: false
 		};
 
 		for (var i in options) {
@@ -467,33 +469,34 @@
 		},
 
 		_start: function (e) {
-			// React to left mouse button only
-			if (utils.eventType[e.type] != 1) {
-				// for button property
-				// http://unixpapa.com/js/mouse.html
-				var button;
-				if (!e.which) {
-					/* IE case */
-					button = (e.button < 2) ? 0 :
-						((e.button == 4) ? 1 : 2);
-				} else {
-					/* All others */
-					button = e.button;
+			
+				// React to left mouse button only
+				if (utils.eventType[e.type] != 1) {
+					// for button property
+					// http://unixpapa.com/js/mouse.html
+					var button;
+					if (!e.which) {
+						/* IE case */
+						button = (e.button < 2) ? 0 :
+							((e.button == 4) ? 1 : 2);
+					} else {
+						/* All others */
+						button = e.button;
+					}
+					if (button !== 0) {
+						return;
+					}
 				}
-				if (button !== 0) {
+
+				if (!this.enabled || (this.initiated && utils.eventType[e.type] !== this.initiated)) {
 					return;
 				}
-			}
 
-			if (!this.enabled || (this.initiated && utils.eventType[e.type] !== this.initiated)) {
-				return;
-			}
+				if (this.options.preventDefault && !utils.isBadAndroid && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
+					e.preventDefault();
+				}
 
-			if (this.options.preventDefault && !utils.isBadAndroid && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
-				e.preventDefault();
-			}
-
-	/* 		if (e.pointerId == 1) { */
+				//if (!this.flag_s) {
 				var point = e.touches ? e.touches[0] : e,
 					pos;
 
@@ -525,25 +528,32 @@
 				this.pointX = point.pageX;
 				this.pointY = point.pageY;
 
+
 				this._execEvent('beforeScrollStart');
+				this.flag_s = true;
 
-			//	console.log(e)
+				console.log(e)
 
-			/* } */
+		//	}
 
 
 		},
 
 		_move: function (e) {
-			if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
-				return;
-			}
+		
+				if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
+					return;
+				}
 
-			if (this.options.preventDefault) { // increases performance on Android? TODO: check!
-				e.preventDefault();
-			}
-			if (e.pointerId == 1) {
+				if (this.options.preventDefault) { // increases performance on Android? TODO: check!
+					e.preventDefault();
+				}
 
+				if (!this.flag_m) {
+					console.log('test')
+					this.flag_s = false;
+				this.flag_m = false;
+				console.log(this.flag_m);
 				var point = e.touches ? e.touches[0] : e,
 					deltaX = point.pageX - this.pointX,
 					deltaY = point.pageY - this.pointY,
@@ -629,106 +639,121 @@
 				}
 
 				/* REPLACE END: _move */
-	}
+				console.log(point.pointerId);
+		
+				this.flag_m = false;
+			
+				
+			}
+
 
 		},
 
 		_end: function (e) {
-			if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
-				return;
-			}
-
-			if (this.options.preventDefault && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
-				e.preventDefault();
-			}
-
-			var point = e.changedTouches ? e.changedTouches[0] : e,
-				momentumX,
-				momentumY,
-				duration = utils.getTime() - this.startTime,
-				newX = Math.round(this.x),
-				newY = Math.round(this.y),
-				distanceX = Math.abs(newX - this.startX),
-				distanceY = Math.abs(newY - this.startY),
-				time = 0,
-				easing = '';
-
-			this.isInTransition = 0;
-			this.initiated = 0;
-			this.endTime = utils.getTime();
-
-			// reset if we are outside of the boundaries
-			if (this.resetPosition(this.options.bounceTime)) {
-				return;
-			}
-
-			this.scrollTo(newX, newY); // ensures that the last position is rounded
-
-			// we scrolled less than 10 pixels
-			if (!this.moved) {
-				if (this.options.tap) {
-					utils.tap(e, this.options.tap);
+		
+				if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
+					return;
 				}
 
-				if (this.options.click) {
-					utils.click(e);
+				if (this.options.preventDefault && !utils.preventDefaultException(e.target, this.options.preventDefaultException)) {
+					e.preventDefault();
 				}
 
-				this._execEvent('scrollCancel');
-				return;
-			}
-
-			if (this._events.flick && duration < 200 && distanceX < 100 && distanceY < 100) {
-				this._execEvent('flick');
-				return;
-			}
-
-			// start momentum animation if needed
-			if (this.options.momentum && duration < 300) {
-				momentumX = this.hasHorizontalScroll ? utils.momentum(this.x, this.startX, duration, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options.deceleration) : {
-					destination: newX,
-					duration: 0
-				};
-				momentumY = this.hasVerticalScroll ? utils.momentum(this.y, this.startY, duration, this.maxScrollY, this.options.bounce ? this.wrapperHeight : 0, this.options.deceleration) : {
-					destination: newY,
-					duration: 0
-				};
-				newX = momentumX.destination;
-				newY = momentumY.destination;
-				time = Math.max(momentumX.duration, momentumY.duration);
-				this.isInTransition = 1;
-			}
+				if (this.flag_m ) {
+			
+					this.flag_m = false;
+					console.log(this.flag_m);
 
 
-			if (this.options.snap) {
-				var snap = this._nearestSnap(newX, newY);
-				this.currentPage = snap;
-				time = this.options.snapSpeed || Math.max(
-					Math.max(
-						Math.min(Math.abs(newX - snap.x), 1000),
-						Math.min(Math.abs(newY - snap.y), 1000)
-					), 300);
-				newX = snap.x;
-				newY = snap.y;
+				var point = e.changedTouches ? e.changedTouches[0] : e,
+					momentumX,
+					momentumY,
+					duration = utils.getTime() - this.startTime,
+					newX = Math.round(this.x),
+					newY = Math.round(this.y),
+					distanceX = Math.abs(newX - this.startX),
+					distanceY = Math.abs(newY - this.startY),
+					time = 0,
+					easing = '';
 
-				this.directionX = 0;
-				this.directionY = 0;
-				easing = this.options.bounceEasing;
-			}
+				this.isInTransition = 0;
+				this.initiated = 0;
+				this.endTime = utils.getTime();
 
-			// INSERT POINT: _end
-
-			if (newX != this.x || newY != this.y) {
-				// change easing function when scroller goes out of the boundaries
-				if (newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY) {
-					easing = utils.ease.quadratic;
+				// reset if we are outside of the boundaries
+				if (this.resetPosition(this.options.bounceTime)) {
+					return;
 				}
 
-				this.scrollTo(newX, newY, time, easing);
-				return;
-			}
+				this.scrollTo(newX, newY); // ensures that the last position is rounded
 
-			this._execEvent('scrollEnd');
+				// we scrolled less than 10 pixels
+				if (!this.moved) {
+					if (this.options.tap) {
+						utils.tap(e, this.options.tap);
+					}
+
+					if (this.options.click) {
+						utils.click(e);
+					}
+
+					this._execEvent('scrollCancel');
+					return;
+				}
+
+				if (this._events.flick && duration < 200 && distanceX < 100 && distanceY < 100) {
+					this._execEvent('flick');
+					return;
+				}
+
+				// start momentum animation if needed
+				if (this.options.momentum && duration < 300) {
+					momentumX = this.hasHorizontalScroll ? utils.momentum(this.x, this.startX, duration, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options.deceleration) : {
+						destination: newX,
+						duration: 0
+					};
+					momentumY = this.hasVerticalScroll ? utils.momentum(this.y, this.startY, duration, this.maxScrollY, this.options.bounce ? this.wrapperHeight : 0, this.options.deceleration) : {
+						destination: newY,
+						duration: 0
+					};
+					newX = momentumX.destination;
+					newY = momentumY.destination;
+					time = Math.max(momentumX.duration, momentumY.duration);
+					this.isInTransition = 1;
+				}
+
+
+				if (this.options.snap) {
+					var snap = this._nearestSnap(newX, newY);
+					this.currentPage = snap;
+					time = this.options.snapSpeed || Math.max(
+						Math.max(
+							Math.min(Math.abs(newX - snap.x), 1000),
+							Math.min(Math.abs(newY - snap.y), 1000)
+						), 300);
+					newX = snap.x;
+					newY = snap.y;
+
+					this.directionX = 0;
+					this.directionY = 0;
+					easing = this.options.bounceEasing;
+				}
+
+				// INSERT POINT: _end
+
+				if (newX != this.x || newY != this.y) {
+					// change easing function when scroller goes out of the boundaries
+					if (newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY) {
+						easing = utils.ease.quadratic;
+					}
+
+					this.scrollTo(newX, newY, time, easing);
+					return;
+				}
+
+				this._execEvent('scrollEnd');
+			
+			}
 		},
 
 		_resize: function () {

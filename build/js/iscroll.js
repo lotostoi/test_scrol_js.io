@@ -542,7 +542,7 @@
 			if (this.options.preventDefault) { // increases performance on Android? TODO: check!
 				e.preventDefault();
 			}
-		//	if (e.pointerId == 1) {
+			if (e.pointerId == 1) {
 
 				var point = e.touches ? e.touches[0] : e,
 					deltaX = point.pageX - this.pointX,
@@ -629,7 +629,7 @@
 				}
 
 				/* REPLACE END: _move */
-		///	}
+	}
 
 		},
 

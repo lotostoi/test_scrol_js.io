@@ -512,7 +512,7 @@
 
 				this.startTime = utils.getTime();
 
-				document.querySelector('.output').innerHTML = "консоль " + e.type; 
+				document.querySelector('.output').innerHTML = "консоль " + e.type +" "+ e.pointerType; 
 
 				if (this.options.useTransition && this.isInTransition) {
 					this._transitionTime();

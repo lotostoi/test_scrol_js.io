@@ -500,7 +500,7 @@
 				var point = e.touches ? e.touches[0] : e,
 					pos;
 
-				document.querySelector('.output').innerHTML = "консоль " + e.touches  + " " + e.targetTouches +" "+ e.changedTouches 
+				//document.querySelector('.output').innerHTML = "консоль " + e.touches  + " " + e.targetTouches +" "+ e.changedTouches 
 
 				this.initiated = utils.eventType[e.type];
 				this.moved = false;
@@ -511,6 +511,8 @@
 				this.directionLocked = 0;
 
 				this.startTime = utils.getTime();
+
+				document.querySelector('.output').innerHTML = "консоль " + e.type; 
 
 				if (this.options.useTransition && this.isInTransition) {
 					this._transitionTime();

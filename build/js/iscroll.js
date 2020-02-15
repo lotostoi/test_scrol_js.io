@@ -359,8 +359,7 @@
 				useTransition: true,
 				useTransform: true,
 				bindToWrapper: typeof window.onmousedown === "undefined",
-				flag_s: false,
-				flag_m: 'start'
+				
 			};
 
 			for (var i in options) {
@@ -538,7 +537,7 @@
 
 
 					this._execEvent('beforeScrollStart');
-					this.flag_s = true;
+				
 
 				
 
